@@ -2,14 +2,14 @@
 echo '
 <div id="Head">
     <div class="Menu">
-            <h1><a href="/vanilla-core-2-0-18-8/index.php?p=/" class="Title"><span>Smart Treatment</span></a></h1>
+            <h1><a href="/vanilla-core-2-0-18-8/index.php?p=/" class="Title"><span>Haalthy</span></a></h1><br>
             <ul id="Menu">
                 <li class="Discussions Highlight"><a href="/vanilla-core-2-0-18-8/index.php?p=/discussions">Discussions</a></li>
                 <li class="Activity"><a href="/vanilla-core-2-0-18-8/index.php?p=/activity">Activity</a></li>
                 <li class="Inbox"><a href="/vanilla-core-2-0-18-8/index.php?p=/messages/all">Inbox</a></li>
                 <li class="UserNotifications"><a href="/vanilla-core-2-0-18-8/index.php?p=/profile/'.$_POST['user'].'">'.$_POST['user'].'</a></li>
                 <li class="UserNotifications">
-                    <form method="post" action="http://192.168.16.133/profile/patients.php" name="subPatient">
+                    <form method="post" action="http://'.$_SERVER['HTTP_HOST'].'/profile/patients.php" name="subPatient">
                         <input type="hidden" value="'.$_POST['user'].'" name="user">
                         <a href="javascript:document.subPatient.submit();">Patients</a>
                     </form></li>

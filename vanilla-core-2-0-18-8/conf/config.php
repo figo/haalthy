@@ -49,7 +49,7 @@ $Configuration['Plugins']['GettingStarted']['Plugins'] = '1';
 $Configuration['Plugins']['Tagging']['Enabled'] = TRUE;
 
 // Routes
-$Configuration['Routes']['DefaultController'] = 'a:2:{i:0;s:11:"discussions";i:1;s:8:"Internal";}';
+$Configuration['Routes']['DefaultController'] = 'a:2:{i:0;s:26:"discussions/tagged\&User=0";i:1;s:8:"Internal";}';
 
 // Vanilla
 $Configuration['Vanilla']['Version'] = '2.0.18.8';
@@ -63,4 +63,4 @@ $Configuration['Vanilla']['Comments']['PerPage'] = '50';
 $Configuration['Vanilla']['Archive']['Date'] = '';
 $Configuration['Vanilla']['Archive']['Exclude'] = FALSE;
 
-// Last edited by figo (192.168.16.1)2013-07-29 23:50:48
+// Last edited by figo (192.168.16.1)2013-08-12 18:30:39

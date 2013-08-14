@@ -43,7 +43,6 @@ class Gdn_Router extends Gdn_Pluggable {
    
    public function GetDestination($Request) {
       $Route = $this->MatchRoute($Request);
-      
       if ($Route !== FALSE)
          return isset($Route['FinalDestination']) ? $Route['FinalDestination'] : $Route['Destination'];
       

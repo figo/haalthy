@@ -13,7 +13,7 @@ function WriteComment($Object, $Sender, $Session, $CurrentOffset) {
    $Sender->EventArguments['Author'] = $Author;
    $CssClass = 'Item Comment';
    $Permalink = GetValue('Url', $Object, FALSE);
-
+    $Tags = GetValue('Tags', $Object, FALSE);
    if (!property_exists($Sender, 'CanEditComments'))
 		$Sender->CanEditComments = $Session->CheckPermission('Vanilla.Comments.Edit', TRUE, 'Category', 'any') && C('Vanilla.AdminCheckboxes.Use');
 		
@@ -52,7 +52,7 @@ function WriteComment($Object, $Sender, $Session, $CurrentOffset) {
             ?>
          </span>
          <span class="DateCreated">
-            <?php
+           <?php
             echo Anchor(Gdn_Format::Date($Object->DateInserted), $Permalink, 'Permalink', array('name' => 'Item_'.($CurrentOffset+1), 'rel' => 'nofollow'));
             ?>
          </span>
@@ -74,6 +74,7 @@ function WriteComment($Object, $Sender, $Session, $CurrentOffset) {
          </div>
          <?php $Sender->FireEvent('AfterCommentMeta'); ?>
       </div>
+
       <div class="Message">
 			<?php 
             $Sender->FireEvent('BeforeCommentBody'); 
@@ -82,7 +83,23 @@ function WriteComment($Object, $Sender, $Session, $CurrentOffset) {
 			   $Object = $Sender->EventArguments['Object'];
 			   echo $Object->FormatBody;
 			?>
-		</div>
+        </div>
+    <div class="Meta">
+    <span class="Author">
+        Tags:
+    </span>
+    <span>
+    <?php
+               $Tags=preg_split('`[\*]`', $Tags);
+               foreach($Tags as $Tag){
+                   if($Tag != ''){
+                    echo Anchor($Tag, '/discussions/tagged&Tag='.$Tag);
+                    echo ', ';
+                   }
+               }
+    ?>
+    </span>
+    </div>
       <?php $Sender->FireEvent('AfterCommentBody'); ?>
    </div>
 </li>

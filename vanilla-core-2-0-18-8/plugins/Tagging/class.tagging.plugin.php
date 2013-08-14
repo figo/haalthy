@@ -54,18 +54,21 @@ class TaggingPlugin extends Gdn_Plugin {
     * Load discussions for a specific tag.
     */
    public function DiscussionsController_Tagged_Create($Sender) {
-      if ($Sender->Request->Get('Tag')) {
+     if ($Sender->Request->Get('Tag')) {
          $Tag = $Sender->Request->Get('Tag');
          $Page = GetValue('0', $Sender->RequestArgs, 'p1');
-      } else {
-         $Tag = urldecode(GetValue('0', $Sender->RequestArgs, ''));
+     } else if($Sender->Request->Get('User')=='0'){
+         $this->_GetTagsByUser($Sender->Request->Get('User'), &$Tag);
          $Page = GetValue('1', $Sender->RequestArgs, 'p1');
-      }
-      
-      if ($Sender->Request->Get('Page')) {
+     } else {
+         $Tag = urldecode(GetValue('0', $Sender->RequestArgs, ''));
+         if($Tag == '&User=0')
+            $this->_GetTagsByUser($Sender->Request->Get('User'), &$Tag);
+         $Page = GetValue('1', $Sender->RequestArgs, 'p1');
+     } 
+     if ($Sender->Request->Get('Page')) {
          $Page = $Sender->Request->Get('Page');
       }
-      
       $Tag = StringEndsWith($Tag, '.rss', TRUE, TRUE);
       list($Offset, $Limit) = OffsetLimit($Page, Gdn::Config('Vanilla.Discussions.PerPage', 30));
    
@@ -303,6 +306,24 @@ class TaggingPlugin extends Gdn_Plugin {
       exit();
    }
 
+   public function PluginController_UpdateUserTag_Create($Sender) {
+       $args = preg_split('/,/', GetValue(0, $Sender->RequestArgs));
+       $userID = $args[0];
+       $tagID = $args[1];
+       $action = $args[2];
+       if($action == 'addfavorite'){
+           Gdn::Database()->SQL()->Insert(
+               'UserTag',
+               array(
+                  'UserID' => Gdn::Session()->UserID,
+                  'TagID' => $tagID,
+               )
+            );
+       }
+       if($action == 'deletefavorite'){
+            Gdn::Database()->SQL()->Where('TagID', $tagID)->Delete('UserTag');
+       }
+   }
    /**
     *
     * @param Gdn_SQLDriver $Sql
@@ -543,6 +564,21 @@ class TaggingPlugin extends Gdn_Plugin {
       $TagModule = new TagModule($Sender);
       $TagModule->GetData($DiscussionID);
       $Sender->AddModule($TagModule);      
-   }   
-   
+   }
+
+   private function _GetTagsByUser($User, $TagsString){
+       $TagsString = "";
+       $UserTag = Gdn::Database()->SQL()
+          ->Select('ut.TagID')
+          ->Select('ut.UserID')
+          ->Select('t.Name')
+          ->From('UserTag ut')
+          ->Join('Tag t', 'ut.TagID = t.TagID')
+          ->OrderBy('ut.TagID')
+          ->Where('ut.UserID =',Gdn::Session()->UserID)
+          ->Get();
+       foreach($UserTag as $Tag){
+           $TagsString = $TagsString.','.$Tag->Name;
+       }
+   }  
 }

@@ -5,7 +5,7 @@
    <p><?php 
 	    $Session = Gdn::Session();
         $ProfileSlug = $Session->User->Name;
-        $patientForm = "<form id='subPatient' action='http://192.168.16.133/profile/addpatient.php' method='post'> <input type='hidden' name='user' value="."'".$ProfileSlug."'"."/> <a href='javascript:document.getElementById("."\""."subPatient"."\"".").submit();'>Patients</a></form>";
+        $patientForm = "<form id='subPatient' action='http://".$_SERVER['HTTP_HOST']."/profile/addpatient.php' method='post'> <input type='hidden' name='user' value="."'".$ProfileSlug."'"."/> <a href='javascript:document.getElementById("."\""."subPatient"."\"".").submit();'>Add Patients</a></form>";
         echo T('Would you please input your patients information, so we can learn more about you and give u some suggestion?'); 
         echo $patientForm;
         ?>

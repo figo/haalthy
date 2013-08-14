@@ -35,11 +35,10 @@ if (defined('PROFILER') && PROFILER) {
 
 // 1. Define the constants we need to get going.
 define('DS', '/');
-define('PATH_ROOT', dirname(__FILE__));
+define('PATH_ROOT', dirname(__FILE__)); 
 
 // 2. Include the bootstrap to configure the framework.
 require_once(PATH_ROOT.'/bootstrap.php');
-
 // 3. Create and configure the dispatcher.
 // TIM: Removed this change temporarily for .com hosting
 // Gdn::Authenticator()->StartAuthenticator();
@@ -52,7 +51,6 @@ $Dispatcher->PassProperty('EnabledApplications', $EnabledApplications);
 // 4. Process the request.
 $Dispatcher->Dispatch();
 $Dispatcher->Cleanup();
-
 // 5. Finish profiling and save results to disk, if requested
 if (defined('PROFILER') && PROFILER) {
    $xhprof_data = xhprof_disable();

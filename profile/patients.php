@@ -17,17 +17,12 @@
 </div>
 </div>
 <?php
-        session_commit();
-        $_SESSION['user'] = $_POST['user'];
-        echo $_SESSION['user'];
-        if(strlen($_POST['user'])>0){
-        }else{
-        }
+        session_start();
 ?>
     <br>
     <form name='addPatient' action='addpatient.php' method='post'>
     <?php
-        echo "<input type='hidden' name='user' value='".$_POST['user']."'>";
+        echo "<input type='hidden' name='user' value='".$_SESSION['user']."'>";
     ?>
     <input type='submit' value='add a new patient profile'>
     </form>

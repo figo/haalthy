@@ -165,7 +165,7 @@ class VanillaHooks implements Gdn_IPlugin {
    public function Base_Render_Before(&$Sender) {
       $Session = Gdn::Session();
       if ($Sender->Menu)
-         $Sender->Menu->AddLink('Discussions', T('Discussions'), '/discussions', FALSE, array('Standard' => TRUE, 'class' => 'Discussions'));
+         $Sender->Menu->AddLink('Discussions', T('Discussions'), '/discussions/tagged&User=0', FALSE, array('Standard' => TRUE, 'class' => 'Discussions'));
    }
    
    /**
@@ -444,7 +444,7 @@ class VanillaHooks implements Gdn_IPlugin {
       $Version = ArrayValue('Version', ArrayValue('Vanilla', $ApplicationInfo, array()), 'Undefined');
       $Save = array(
 	      'Vanilla.Version' => $Version,
-	      'Routes.DefaultController' => 'discussions'
+	      'Routes.DefaultController' => 'discussions/tagged&User=0'
       );
       SaveToConfig($Save);
    }

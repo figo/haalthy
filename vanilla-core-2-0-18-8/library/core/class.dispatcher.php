@@ -172,7 +172,7 @@ class Gdn_Dispatcher extends Gdn_Pluggable {
    /**
     * Analyzes the supplied query string and decides how to dispatch the request.
     */
-   public function Dispatch($ImportRequest = NULL, $Permanent = TRUE) {
+   public function Dispatcher($ImportRequest = NULL, $Permanent = TRUE) {
       if ($ImportRequest && is_string($ImportRequest))
          $ImportRequest = Gdn_Request::Create()->FromEnvironment()->WithURI($ImportRequest);
       
@@ -184,7 +184,6 @@ class Gdn_Dispatcher extends Gdn_Pluggable {
       
       // By default, all requests can be blocked by UpdateMode/PrivateCommunity
       $CanBlock = self::BLOCK_ANY;
-      
       try {
          $BlockExceptions = array(
              '/utility(\/.*)?$/'                   => self::BLOCK_NEVER,

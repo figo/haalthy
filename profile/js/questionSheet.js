@@ -8,7 +8,7 @@ var deletePatientHttpresq;
 function getNextQuestionSheet(optionID,questionID){
     optionId = optionID;
     questionId = questionID;
-    var httpLink = 'http://192.168.16.133/profile/nextQuestionSheet.php?optionId='+optionId;
+    var httpLink = 'http://'+location.host+'/profile/nextQuestionSheet.php?optionId='+optionId;
     getQuestionSheetHttpresq = new XMLHttpRequest();
     getQuestionSheetHttpresq.open( "GET", httpLink, false );
     getQuestionSheetHttpresq.onreadystatechange = handler;
@@ -50,7 +50,7 @@ function saveAnswerSheet(usr){
             answerSheetParam +=question+'=&';
    }
 
-    var httpLink = 'http://192.168.16.133/profile/saveAnswerSheet.php';
+    var httpLink = 'http://'+location.host+'/profile/saveAnswerSheet.php';
     saveAnswerSheetHttpresq = new XMLHttpRequest();
     saveAnswerSheetHttpresq.open( "post", httpLink, false );
     saveAnswerSheetHttpresq.onreadystatechange = posthandler;
@@ -67,7 +67,7 @@ function editAnswerSheet(patientID,usr){
         answerSheetParam += option.name + '=' + option.value + '&';
       }
    }
-    var httpLink = 'http://192.168.16.133/profile/editAnswerSheet.php';
+    var httpLink = 'http://'+location.host+'/profile/editAnswerSheet.php';
     saveAnswerSheetHttpresq = new XMLHttpRequest();
     saveAnswerSheetHttpresq.open( "post", httpLink, false );
     saveAnswerSheetHttpresq.onreadystatechange = posthandler;
@@ -80,7 +80,7 @@ function posthandler(evtXHR){
         if (saveAnswerSheetHttpresq.status == 200)
         {
 */
-            var httpLink = 'http://192.168.16.133/profile/getPatientSheet.php'
+            var httpLink = 'http://.'+location.host+'./profile/getPatientSheet.php'
             getPatientSheetHttpresq = new XMLHttpRequest();
             getPatientSheetHttpresq.open( "post", httpLink, false );
             getPatientSheetHttpresq.onreadystatechange = getpatienthandler;
@@ -101,7 +101,7 @@ function getpatienthandler(evtXHR){
 
 function deletePatient(patientID,usr){
     user = usr;
-    var httpLink = 'http://192.168.16.133/profile/deletePatient.php';
+    var httpLink = 'http://'+location.host+'/profile/deletePatient.php';
      deletePatientHttpresq = new XMLHttpRequest();
      deletePatientHttpresq.open( "post", httpLink, false );
      deletePatientHttpresq.onreadystatechange = posthandler;

@@ -11,7 +11,7 @@
             <h1><a class="Title" href="<?php echo Url('/'); ?>"><span><?php echo Gdn_Theme::Logo(); ?></span></a></h1>
             <?php
 	        $Session = Gdn::Session();
-       	        if ($this->Menu) {
+if ($this->Menu) {
 		            $this->Menu->AddLink('Dashboard', T('Dashboard'), '/dashboard/settings', array('Garden.Settings.Manage'), array('class' => 'Dashboard'));
 		            // $this->Menu->AddLink('Dashboard', T('Users'), '/user/browse', array('Garden.Users.Add', 'Garden.Users.Edit', 'Garden.Users.Delete'),  array('class' => 'Users'));
 		            $this->Menu->AddLink('Activity', T('Activity'), '/activity', FALSE, array('class' => 'Activity'));
@@ -30,7 +30,7 @@
                         //$this->Menu->AddLink('Profile', 'Patients', $ProfileSlug.'/patients', FALSE, array('class' => 'UserPatients'));
                         $menuString = $this->Menu->ToString();
                         $menuString = substr($menuString, 0, strlen($menuString)-5);
-                        $patientForm = "<li><form name='subPatient' action='http://192.168.16.133/profile/patients.php' method='post'>
+                        $patientForm = "<li><form name='subPatient' action='http://".$_SERVER['HTTP_HOST']."/profile/patients.php' method='post'>
                             <input type='hidden' name='user' value="."'".$ProfileSlug."'"."/>
                             <a href='javascript:document.subPatient.submit();'>Patients</a>
                             </form></li>";

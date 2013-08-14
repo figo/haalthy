@@ -1,5 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
-
+session_start();
+$_SESSION['user'] = Gdn::Session()->User->Name;
 function WriteDiscussion($Discussion, &$Sender, &$Session, $Alt2) {
    static $Alt = FALSE;
    $CssClass = 'Item';
@@ -43,16 +44,17 @@ function WriteDiscussion($Discussion, &$Sender, &$Session, $Alt2) {
    <div class="ItemContent Discussion">
       <?php echo Anchor($DiscussionName, $DiscussionUrl, 'Title'); ?>
       <?php $Sender->FireEvent('AfterDiscussionTitle'); ?>
-      <?php 
+<?php 
+   //display the first 300 chars lily
 		$discussionBody;
 		if(strlen($Discussion->Body)<=300)
 	   	    $discussionBody = $Discussion->Body;
 		else
         {
 			$discussionBody = substr($Discussion->Body,300);
-            $discussionBody = $discussionBody.'...';
+            $discussionBody = $discussionBody.'...'.Anchor("More", $DiscussionUrl);
 		}
-        print_r($discussionBody);
+        echo $discussionBody;
 	?>
       <div class="Meta">
          <?php $Sender->FireEvent('BeforeDiscussionMeta'); ?>
@@ -146,7 +148,7 @@ function WriteFilterTabs(&$Sender) {
       }
       if ($CountDiscussions > 0 || $Sender->RequestMethod == 'mine') {
       ?>
-      <li<?php echo $Sender->RequestMethod == 'mine' ? ' class="Active"' : ''; ?>><?php echo Anchor($MyDiscussions, '/discussions/mine', 'MyDiscussions TabLink'); ?></li>
+      <li<?php echo $Sender->RequestMethod == 'mine' ? ' class="Active"' : ''; ?>><?php echo Anchor($MyDiscussions, '/discussions/Tagged&User=0', 'MyDiscussions TabLink'); ?></li>
       <?php
       }
       if ($CountDrafts > 0 || $Sender->ControllerName == 'draftscontroller') {
