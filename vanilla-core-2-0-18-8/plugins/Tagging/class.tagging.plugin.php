@@ -319,9 +319,11 @@ class TaggingPlugin extends Gdn_Plugin {
                   'TagID' => $tagID,
                )
             );
+           Gdn::Database()->SQL()->Update('Tag')->Set('countFollowers', 'countFollowers + 1', FALSE)->Where('TagID', $tagID)->Put();
        }
        if($action == 'deletefavorite'){
             Gdn::Database()->SQL()->Where('TagID', $tagID)->Delete('UserTag');
+            Gdn::Database()->SQL()->Update('Tag')->Set('countFollowers', 'countFollowers - 1', FALSE)->Where('TagID', $tagID)->Put();
        }
    }
    /**
@@ -348,7 +350,6 @@ class TaggingPlugin extends Gdn_Plugin {
          ->Get()->ResultArray();
       
       $TagIDs = ConsolidateArrayValuesByKey($TagIDs, 'TagID');
-      
       if ($Op == 'and' && count($Tags) > 1) {
          $DiscussionIDs = $TagSql
             ->Select('DiscussionID')
@@ -365,16 +366,15 @@ class TaggingPlugin extends Gdn_Plugin {
          
          $Sql->WhereIn('d.DiscussionID', $DiscussionIDs);
          $SortField = 'd.DiscussionID';
-      } else {
+      } else if(count($TagIDs)>0){
          $Sql
             ->Join('TagDiscussion td', 'd.DiscussionID = td.DiscussionID')
             ->Limit($Limit, $Offset)
             ->WhereIn('td.TagID', $TagIDs);
          
          if ($Op == 'and')
-            $SortField = 'd.DiscussionID';
-      }  
-      
+             $SortField = 'd.DiscussionID';
+      }      
       // Set up the sort field and direction.
       SaveToConfig(array(
           'Vanilla.Discussions.SortField' => $SortField,
@@ -559,6 +559,7 @@ class TaggingPlugin extends Gdn_Plugin {
       
       $Sender->AddCSSFile('plugins/Tagging/design/tag.css');
       $Sender->AddJsFile('plugins/Tagging/addtagtouser.js');
+      $Sender->AddJsFile('plugins/Tagging/allTags.js');
       $DiscussionID = property_exists($Sender, 'DiscussionID') ? $Sender->DiscussionID : 0;
       include_once(PATH_PLUGINS.'/Tagging/class.tagmodule.php');
       $TagModule = new TagModule($Sender);
@@ -578,7 +579,10 @@ class TaggingPlugin extends Gdn_Plugin {
           ->Where('ut.UserID =',Gdn::Session()->UserID)
           ->Get();
        foreach($UserTag as $Tag){
-           $TagsString = $TagsString.','.$Tag->Name;
+           if($TagsString == "")
+               $TagsString = $Tag->Name;
+           else
+               $TagsString = $TagsString.','.$Tag->Name;
        }
    }  
 }

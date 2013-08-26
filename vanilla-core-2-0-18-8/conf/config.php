@@ -13,6 +13,9 @@ $Configuration['Database']['Password'] = '';
 $Configuration['EnabledApplications']['Conversations'] = 'conversations';
 $Configuration['EnabledApplications']['Vanilla'] = 'vanilla';
 
+// EnabledLocales
+$Configuration['EnabledLocales']['skeleton'] = 'en-CA';
+
 // EnabledPlugins
 $Configuration['EnabledPlugins']['GettingStarted'] = 'GettingStarted';
 $Configuration['EnabledPlugins']['HtmLawed'] = 'HtmLawed';
@@ -63,4 +66,4 @@ $Configuration['Vanilla']['Comments']['PerPage'] = '50';
 $Configuration['Vanilla']['Archive']['Date'] = '';
 $Configuration['Vanilla']['Archive']['Exclude'] = FALSE;
 
-// Last edited by figo (192.168.16.1)2013-08-12 18:30:39
+// Last edited by figo (192.168.16.1)2013-08-23 00:57:04

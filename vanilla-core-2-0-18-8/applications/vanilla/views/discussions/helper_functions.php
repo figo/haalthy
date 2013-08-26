@@ -1,6 +1,7 @@
 <?php if (!defined('APPLICATION')) exit();
 session_start();
 $_SESSION['user'] = Gdn::Session()->User->Name;
+$_SESSION['userID'] = Gdn::Session()->UserID;
 function WriteDiscussion($Discussion, &$Sender, &$Session, $Alt2) {
    static $Alt = FALSE;
    $CssClass = 'Item';

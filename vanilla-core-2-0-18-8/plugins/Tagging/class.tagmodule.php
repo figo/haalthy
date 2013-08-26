@@ -32,14 +32,8 @@ class TagModule extends Gdn_Module {
       } else {
  */         $SQL->Where('t.CountDiscussions >', 0, FALSE);
  //     }
-            
-      $this->_TagData = $SQL
-         ->Select('t.*')
-         ->From('Tag t')
-         ->OrderBy('t.CountDiscussions', 'desc')
-         ->Limit(25)
-         ->Get();
-      $this->_UserTag = Gdn::Database()->SQL()
+
+     $this->_UserTag = Gdn::Database()->SQL()
           ->Select('ut.TagID')
           ->Select('ut.UserID')
           ->Select('t.Name')
@@ -47,16 +41,36 @@ class TagModule extends Gdn_Module {
           ->Join('Tag t', 'ut.TagID = t.TagID')
           ->OrderBy('ut.TagID')
           ->Where('ut.UserID =',Gdn::Session()->UserID)
-          ->Get();
-       }
+          ->Get();           
+      $TagIDs = array();
+      foreach($this->_UserTag as $TagID){
+         array_push($TagIDs, $TagID->TagID); 
+      } 
+      if(count($TagIDs)>0){
+        $this->_TagData = $SQL
+         ->Select('t.*')
+         ->From('Tag t')
+         ->WhereNotIn('t.tagID',$TagIDs)
+         ->OrderBy('t.CountDiscussions', 'desc')
+         ->Limit(25)
+         ->Get();
+        } else{
+       $this->_TagData = $SQL
+         ->Select('t.*')
+         ->From('Tag t')
+         ->OrderBy('t.CountDiscussions', 'desc')
+         ->Limit(25)
+         ->Get();
+        }
+   }
 
    public function AssetTarget() {
       return 'Panel';
    }
 
    public function ToString() {
-      if ($this->_TagData->NumRows() == 0)
-         return '';
+   //   if ($this->_TagData->NumRows() == 0)
+   //      return '';
       
       $String = '';
       ob_start();
@@ -76,7 +90,6 @@ class TagModule extends Gdn_Module {
                 <div class="favoriteTag"> 
                     <a href="javascript:changeToUnFavorite('.$UserTag->TagID.', '.$this->_User.', \''.Gdn::Request()->Url('plugin/updateusertag').'\');"><img id="favriteTag'.$UserTag->TagID.'" src="favoritestar.png" border="0" height="15" width="15"></a>
             </div></li>';
-
             }
            ?>
          </ul>
@@ -88,7 +101,8 @@ class TagModule extends Gdn_Module {
             array_push($TagIDs, $TagID->TagID); 
         }         
          foreach ($this->_TagData->Result() as $Tag) {
-            if (($Tag->Name != '')&&!in_array($Tag->TagID, $TagIDs)) {
+            //if (($Tag->Name != '')&&!in_array($Tag->TagID, $TagIDs)) {
+            if ($Tag->Name != '') {
          ?>
              <li id = "Tag<?php echo $Tag->TagID?>"><strong><?php 
                     if (urlencode($Tag->Name) == $Tag->Name) {
@@ -111,8 +125,11 @@ class TagModule extends Gdn_Module {
          <?php
             }
          }
-         ?>
+        ?>
          </ul>
+        <h4>
+            <a href="javascript:listAllTags();">browse all tags</a>
+        </h4>
       </div>
       <?php
       $String = ob_get_contents();

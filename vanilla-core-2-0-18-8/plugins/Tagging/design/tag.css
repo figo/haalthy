@@ -4,3 +4,21 @@
     border-bottom: 1px solid #999;
     color: #444;
 }
+.tag {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #88CAD6;
+    border-radius: 14px 14px 14px 14px;
+    box-shadow: -1px 1px 2px #DDDDDD;
+    color: #0E729F;
+    display: inline-block;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.5em;
+    margin: 0 0 5px 5px;
+    padding: 0 8px;
+}
+
+.tagDescription {
+    margin: 4px 5px 20px 5px;
+}

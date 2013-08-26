@@ -6,6 +6,10 @@ function changeToFavorite(tagID, userID, updateLink){
 //    favTag.src = "favoritestar.png";
     var httpLink = 'http://' + location.host+'/' + updateLink + '/' + userID + ',' + tagID + ',addfavorite';
 //    alert(httpLink);
+    if(userID == 0){
+        alert("Please SignIn ");
+        return;
+    }
     updateusertagHttpresq = new XMLHttpRequest();
     updateusertagHttpresq.open( "GET", httpLink, false );
     updateusertagHttpresq.onreadystatechange = function(){
@@ -47,7 +51,6 @@ function changeToUnFavorite(tagID, userID, updateLink){
             {
                 var htmlObject = document.createElement('li');
                 htmlObject.innerHTML = document.getElementById('Tag'+tagID).innerHTML;
-
                 //remove Tag from Popular Tags;
                 var favoriteTagBox = document.getElementById('FavoriteTags');
                 favoriteTagBox.removeChild(document.getElementById('Tag'+tagID));
@@ -58,8 +61,20 @@ function changeToUnFavorite(tagID, userID, updateLink){
                 suggestedTagBox.innerHTML = "<li id='Tag"+tagID+"'>"+htmlObject.innerHTML+"</li>"+suggestedTagBox.innerHTML;
                 var favImage = document.getElementById('favriteTag'+tagID);
                 favImage.src = "unfavoritestar.png";
-       }
-   }
+            }
+        }
    };
    deleteusertagHttpresq.send();
+}
+
+function changeTagInListToFavorite(tagID, userID){
+    var changeTagAttributeLink = document.getElementById('TagList'+tagID);
+    changeTagAttributeLink.innerHTML = "unfollow this tag";
+    changeTagAttributeLink.href = "javascript:changeToUnFavorite("+tagID+", "+userID+", \"/vanilla-core-2-0-18-8/index.php?p=/plugin/updateusertag\"); changeTagInListToUnFavorite("+tagID+","+userID+");";
+}
+
+function changeTagInListToUnFavorite(tagID, userID){
+    var changeTagAttributeLink = document.getElementById('TagList'+tagID);
+    changeTagAttributeLink.innerHTML = "follow this tag";
+    changeTagAttributeLink.href = "javascript:changeToFavorite("+tagID+", "+userID+", \"/vanilla-core-2-0-18-8/index.php?p=/plugin/updateusertag\"); changeTagInListToFavorite("+tagID+","+userID+");";
 }

@@ -75,18 +75,18 @@ function editAnswerSheet(patientID,usr){
 }
 
 function posthandler(evtXHR){
-/*    if (saveAnswerSheetHttpresq.readyState == 4)
+    if (saveAnswerSheetHttpresq.readyState == 4)
     {
         if (saveAnswerSheetHttpresq.status == 200)
         {
-*/
-            var httpLink = 'http://.'+location.host+'./profile/getPatientSheet.php'
+
+            var httpLink = 'http://'+location.host+'/profile/getPatientSheet.php'
             getPatientSheetHttpresq = new XMLHttpRequest();
             getPatientSheetHttpresq.open( "post", httpLink, false );
             getPatientSheetHttpresq.onreadystatechange = getpatienthandler;
             getPatientSheetHttpresq.send(user);
-/*        }
-    }*/
+        }
+    }
 
 }
 
