@@ -19,9 +19,9 @@
             echo "<tr>";
             echo "<td class='main-td' width=33% padding=12px valign='top'>";
             if(in_Array($tag['TagID'], $followedTags))
-                echo "<a id=".$tag['Name']." class='followed tag'>".$tag['Name']."</a>";
+                echo "<a id='".$tag['Name']."' class='followed tag' href='/vanilla-core-2-0-18-8/index.php?p=/discussions/tagged&Tag=".$tag['Name']."'>".$tag['Name']."</a>";
             else
-                echo "<a id=".$tag['Name']." class='unfollowed tag'>".$tag['Name']."</a>";
+                echo "<a id='".$tag['Name']."' class='unfollowed tag' href='/vanilla-core-2-0-18-8/index.php?p=/discussions/tagged&Tag=".$tag['Name']."'>".$tag['Name']."</a>";
             echo "<div class = 'tagDescription'>".$tag['Description']."</div>";
        //     if(in_Array($tag['TagID'], $followedTags))
        //         echo "<a href='javascript:changeToUnFavorite(".$tag['TagID'].", ".$_SESSION['userID'].", \"/vanilla-core-2-0-18-8/index.php?p=/plugin/updateusertag\"); changeTagInListToUnFavorite(".$tag['TagID'].",".$_SESSION['userID'].");' id='TagList".$tag['TagID']."'>unfollow this tag</a>";
@@ -39,9 +39,9 @@
                 }
                 echo "<td class='main-td' width=33% padding=12px>";
                 if(in_Array($tag['TagID'], $followedTags))
-                    echo "<a id=".$tag['Name']." class='followed tag'>".$tag['Name']."</a>";
+                    echo "<a id='".$tag['Name']."' class='followed tag' href='/vanilla-core-2-0-18-8/index.php?p=/discussions/tagged&Tag=".$tag['Name']."'>".$tag['Name']."</a>";
                 else
-                    echo "<a id=".$tag['Name']." class='unfollowed tag'>".$tag['Name']."</a>";
+                    echo "<a id='".$tag['Name']."' class='unfollowed tag' href='/vanilla-core-2-0-18-8/index.php?p=/discussions/tagged&Tag=".$tag['Name']."'>".$tag['Name']."</a>";
                 echo "<div class = 'tagDescription'>".$tag['Description']."</div>";
      //           if(in_Array($tag['TagID'], $followedTags))
      //               echo "<a href='javascript:changeToUnFavorite(".$tag['TagID'].", ".$_SESSION['userID'].", \"/vanilla-core-2-0-18-8/index.php?p=/plugin/updateusertag\");'>unfollow this tag</a>";

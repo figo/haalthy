@@ -96,7 +96,7 @@ class PostController extends VanillaController {
       } else {
          // Permission to add
          $this->Permission('Vanilla.Discussions.Add');
-         $this->Title(T('Start a New Discussion'));
+         $this->Title(T(gettext('Start a New Discussion')));
       }
       
       // Set the model on the form

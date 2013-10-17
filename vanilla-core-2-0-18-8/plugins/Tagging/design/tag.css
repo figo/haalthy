@@ -22,3 +22,12 @@
 .tagDescription {
     margin: 4px 5px 20px 5px;
 }
+
+.tag:hover, .tag.followed:hover {
+    background-color: #3DAFBD;
+    color: #C2E4EB;
+}
+.tag.followed {
+    background-color: #C2E4EB;
+    color: #0E729F;
+}

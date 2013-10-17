@@ -144,3 +144,8 @@ $Configuration['Routes']['DefaultForumRoot'] = 'discussions';
 $Configuration['Routes']['Default404'] = array('dashboard/home/filenotfound', 'NotFound');
 $Configuration['Routes']['DefaultPermission'] = array('dashboard/home/permission', 'NotAuthorized');
 $Configuration['Routes']['UpdateMode'] = 'dashboard/home/updatemode';
+
+// Discussion Content Source
+$Configuration['QQ']['Id'] = '39376963';
+$Configuration['QQ']['pwd'] = '29550C9513D8DD4E568D305DB08109EB';
+$Configuration['QQ']['groups'] = '让我们一起努力.352465514';

@@ -73,7 +73,7 @@ class ConversationsHooks implements Gdn_IPlugin {
          $SideMenu->AddLink('Options', sprintf(T('Send %s a Message'), $Sender->User->Name), '/messages/add/'.$Sender->User->Name, FALSE, array('class' => 'MessageLink'));
 
          if (C('Conversations.Moderation.Allow', FALSE)) {
-            $SideMenu->AddLink('Options', T('Inbox'), '/messages/inbox?userid='.$Sender->User->UserID, 'Conversations.Moderation.Manage', array('class' => 'InboxLink'));
+            $SideMenu->AddLink('Options', T(gettext('Inbox')), '/messages/inbox?userid='.$Sender->User->UserID, 'Conversations.Moderation.Manage', array('class' => 'InboxLink'));
          }
 
          $Sender->EventArguments['SideMenu'] = $SideMenu;
@@ -103,7 +103,7 @@ class ConversationsHooks implements Gdn_IPlugin {
       // Add the menu options for conversations
       $Session = Gdn::Session();
       if ($Sender->Menu && $Session->IsValid()) {
-         $Inbox = T('Inbox');
+         $Inbox = T(gettext('Inbox'));
          $CountUnreadConversations = $Session->User->CountUnreadConversations;
          if (is_numeric($CountUnreadConversations) && $CountUnreadConversations > 0)
             $Inbox .= ' <span>'.$CountUnreadConversations.'</span>';

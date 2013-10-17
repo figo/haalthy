@@ -76,7 +76,7 @@ class TagModule extends Gdn_Module {
       ob_start();
       ?>
       <div class="Box Tags">
-         <h4><?php echo T('Favorite Tags'); ?></h4>
+         <h4><?php echo T(gettext('Favorite Tags')); ?></h4>
          <ul class="PanelInfo" id="FavoriteTags"><?php
             foreach($this->_UserTag as $UserTag){
                 ?>
@@ -93,7 +93,7 @@ class TagModule extends Gdn_Module {
             }
            ?>
          </ul>
-         <h4><?php echo T('Popular Tags'); ?></h4>
+         <h4><?php echo T(gettext('Popular Tags')); ?></h4>
          <ul class="PanelInfo" id="SuggestedTags">
         <?php
         $TagIDs = array();
@@ -128,7 +128,7 @@ class TagModule extends Gdn_Module {
         ?>
          </ul>
         <h4>
-            <a href="javascript:listAllTags();">browse all tags</a>
+        <a href="javascript:listAllTags();"><?php echo gettext('Browse all tags');?></a>
         </h4>
       </div>
       <?php

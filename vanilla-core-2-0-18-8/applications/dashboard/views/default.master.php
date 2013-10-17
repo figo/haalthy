@@ -12,9 +12,9 @@
             <?php
 	        $Session = Gdn::Session();
 if ($this->Menu) {
-		            $this->Menu->AddLink('Dashboard', T('Dashboard'), '/dashboard/settings', array('Garden.Settings.Manage'), array('class' => 'Dashboard'));
+		            $this->Menu->AddLink('Dashboard', T(gettext('Dashboard')), '/dashboard/settings', array('Garden.Settings.Manage'), array('class' => 'Dashboard'));
 		            // $this->Menu->AddLink('Dashboard', T('Users'), '/user/browse', array('Garden.Users.Add', 'Garden.Users.Edit', 'Garden.Users.Delete'),  array('class' => 'Users'));
-		            $this->Menu->AddLink('Activity', T('Activity'), '/activity', FALSE, array('class' => 'Activity'));
+		            $this->Menu->AddLink('Activity', T(gettext('Activity')), '/activity', FALSE, array('class' => 'Activity'));
 	   	            if ($Session->IsValid()) {
         			    $Name = $Session->User->Name;
 	        		    $CountNotifications = $Session->User->CountNotifications;
@@ -32,10 +32,10 @@ if ($this->Menu) {
                         $menuString = substr($menuString, 0, strlen($menuString)-5);
                         $patientForm = "<li><form name='subPatient' action='http://".$_SERVER['HTTP_HOST']."/profile/patients.php' method='post'>
                             <input type='hidden' name='user' value="."'".$ProfileSlug."'"."/>
-                            <a href='javascript:document.subPatient.submit();'>Patients</a>
+                            <a href='javascript:document.subPatient.submit();'>".gettext('Patients')."</a>
                             </form></li>";
                         $menuString = $menuString . $patientForm;
-                        $this->Menu->AddLink('SignOut', T('Sign Out'), SignOutUrl(), FALSE, array('class' => 'NonTab SignOut'));
+                        $this->Menu->AddLink('SignOut', gettext(T('Sign Out')), SignOutUrl(), FALSE, array('class' => 'NonTab SignOut'));
                         $signOutString = $this->Menu->ToString();
                         $menuHeadLen = strlen("<ul id='Menu'>");
                         $menuTailLen = strlen("</ul>");

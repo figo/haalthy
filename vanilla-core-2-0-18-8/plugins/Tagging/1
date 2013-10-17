@@ -54,23 +54,21 @@ class TaggingPlugin extends Gdn_Plugin {
     * Load discussions for a specific tag.
     */
    public function DiscussionsController_Tagged_Create($Sender) {
-     if ($Sender->Request->Get('Tag')) {
+      if ($Sender->Request->Get('Tag')) {
          $Tag = $Sender->Request->Get('Tag');
          $Page = GetValue('0', $Sender->RequestArgs, 'p1');
-     } else if($Sender->Request->Get('User')=='0'){
-         $this->_GetTagsByUser($Sender->Request->Get('User'), &$Tag);
-         $Page = GetValue('1', $Sender->RequestArgs, 'p1');
-     } else {
+      } else {
          $Tag = urldecode(GetValue('0', $Sender->RequestArgs, ''));
-         if($Tag == '&User=0')
-            $this->_GetTagsByUser($Sender->Request->Get('User'), &$Tag);
          $Page = GetValue('1', $Sender->RequestArgs, 'p1');
-     } 
-     if ($Sender->Request->Get('Page')) {
+      }
+      
+      if ($Sender->Request->Get('Page')) {
          $Page = $Sender->Request->Get('Page');
       }
+      
       $Tag = StringEndsWith($Tag, '.rss', TRUE, TRUE);
       list($Offset, $Limit) = OffsetLimit($Page, Gdn::Config('Vanilla.Discussions.PerPage', 30));
+   
       $Sender->SetData('Tag', $Tag, TRUE);
       $Sender->Title(T('Tagged with ').htmlspecialchars($Tag));
       $Sender->Head->Title($Sender->Head->Title());
@@ -318,11 +316,10 @@ class TaggingPlugin extends Gdn_Plugin {
                   'TagID' => $tagID,
                )
             );
-           Gdn::Database()->SQL()->Update('Tag')->Set('countFollowers', 'countFollowers + 1', FALSE)->Where('TagID', $tagID)->Put();
        }
        if($action == 'deletefavorite'){
             Gdn::Database()->SQL()->Where('TagID', $tagID)->Delete('UserTag');
-            Gdn::Database()->SQL()->Update('Tag')->Set('countFollowers', 'countFollowers - 1', FALSE)->Where('TagID', $tagID)->Put();
+    //     $Sender->SQL->Where('DiscussionID', $DiscussionID)->Delete('TagDiscussion');
        }
    }
    /**
@@ -349,6 +346,7 @@ class TaggingPlugin extends Gdn_Plugin {
          ->Get()->ResultArray();
       
       $TagIDs = ConsolidateArrayValuesByKey($TagIDs, 'TagID');
+      
       if ($Op == 'and' && count($Tags) > 1) {
          $DiscussionIDs = $TagSql
             ->Select('DiscussionID')
@@ -360,19 +358,21 @@ class TaggingPlugin extends Gdn_Plugin {
             ->Limit($Limit, $Offset)
             ->OrderBy('DiscussionID', 'desc')
             ->Get()->ResultArray();
+         
          $DiscussionIDs = ConsolidateArrayValuesByKey($DiscussionIDs, 'DiscussionID');
          
          $Sql->WhereIn('d.DiscussionID', $DiscussionIDs);
          $SortField = 'd.DiscussionID';
-      } else if(count($TagIDs)>0){
-          $Sql
-            ->Distinct()
+      } else {
+         $Sql
             ->Join('TagDiscussion td', 'd.DiscussionID = td.DiscussionID')
             ->Limit($Limit, $Offset)
             ->WhereIn('td.TagID', $TagIDs);
+         
          if ($Op == 'and')
-             $SortField = 'd.DiscussionID';
-      }      
+            $SortField = 'd.DiscussionID';
+      }  
+      
       // Set up the sort field and direction.
       SaveToConfig(array(
           'Vanilla.Discussions.SortField' => $SortField,
@@ -557,30 +557,11 @@ class TaggingPlugin extends Gdn_Plugin {
       
       $Sender->AddCSSFile('plugins/Tagging/design/tag.css');
       $Sender->AddJsFile('plugins/Tagging/addtagtouser.js');
-      $Sender->AddJsFile('plugins/Tagging/allTags.js');
       $DiscussionID = property_exists($Sender, 'DiscussionID') ? $Sender->DiscussionID : 0;
       include_once(PATH_PLUGINS.'/Tagging/class.tagmodule.php');
       $TagModule = new TagModule($Sender);
       $TagModule->GetData($DiscussionID);
       $Sender->AddModule($TagModule);      
-   }
-
-   private function _GetTagsByUser($User, $TagsString){
-       $TagsString = "";
-       $UserTag = Gdn::Database()->SQL()
-          ->Select('ut.TagID')
-          ->Select('ut.UserID')
-          ->Select('t.Name')
-          ->From('UserTag ut')
-          ->Join('Tag t', 'ut.TagID = t.TagID')
-          ->OrderBy('ut.TagID')
-          ->Where('ut.UserID =',Gdn::Session()->UserID)
-          ->Get();
-       foreach($UserTag as $Tag){
-           if($TagsString == "")
-               $TagsString = $Tag->Name;
-           else
-               $TagsString = $TagsString.','.$Tag->Name;
-       }
-   }  
+   }   
+       
 }

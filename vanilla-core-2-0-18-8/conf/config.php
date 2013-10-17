@@ -20,6 +20,7 @@ $Configuration['EnabledLocales']['skeleton'] = 'en-CA';
 $Configuration['EnabledPlugins']['GettingStarted'] = 'GettingStarted';
 $Configuration['EnabledPlugins']['HtmLawed'] = 'HtmLawed';
 $Configuration['EnabledPlugins']['Tagging'] = TRUE;
+$Configuration['EnabledPlugins']['OpenID'] = TRUE;
 
 // Garden
 $Configuration['Garden']['Title'] = 'Haalthy';
@@ -66,4 +67,4 @@ $Configuration['Vanilla']['Comments']['PerPage'] = '50';
 $Configuration['Vanilla']['Archive']['Date'] = '';
 $Configuration['Vanilla']['Archive']['Exclude'] = FALSE;
 
-// Last edited by figo (192.168.16.1)2013-08-23 00:57:04
+// Last edited by figo (192.168.16.1)2013-10-15 19:21:55

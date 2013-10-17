@@ -1,0 +1,145 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-27 17:31-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: applications/conversations/settings/class.hooks.php:76
+#: applications/conversations/settings/class.hooks.php:106
+msgid "Inbox"
+msgstr "收件箱"
+
+#: applications/dashboard/views/default.master.php:15
+msgid "Dashboard"
+msgstr "设置"
+
+#: applications/dashboard/views/default.master.php:17
+msgid "Activity"
+msgstr "热点"
+
+#: applications/dashboard/views/default.master.php:35
+msgid "Patients"
+msgstr "病人"
+
+#: applications/vanilla/controllers/class.postcontroller.php:99
+#: applications/vanilla/views/modules/newdiscussion.php:2
+msgid "Start a New Discussion"
+msgstr "发帖"
+
+#: applications/vanilla/views/discussions/helper_functions.php:26
+msgid "Blank Discussion Topic"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:63
+msgid "Announcement"
+msgstr "公告"
+
+#: applications/vanilla/views/discussions/helper_functions.php:66
+msgid "Closed"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:76
+msgid "Most recent by "
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:79
+msgid "Started by "
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:104
+#: applications/vanilla/views/discussions/helper_functions.php:132
+msgid "All Discussions"
+msgstr "讨论"
+
+#: applications/vanilla/views/discussions/helper_functions.php:106
+msgid "My Bookmarks"
+msgstr "我的收藏"
+
+#: applications/vanilla/views/discussions/helper_functions.php:107
+msgid "My Discussions"
+msgstr "我的讨论"
+
+#: applications/vanilla/views/discussions/helper_functions.php:108
+msgid "My Drafts"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:142
+msgid "Categories"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:205
+msgid "Dismiss"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:209
+msgid "Edit"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:213
+msgid "Unannounce"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:213
+msgid "Announce"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:217
+msgid "Unsink"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:217
+msgid "Sink"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:221
+msgid "Reopen"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:221
+msgid "Close"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:225
+msgid "Delete"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:233
+msgid "Options"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:253
+msgid "Unbookmark"
+msgstr ""
+
+#: applications/vanilla/views/discussions/helper_functions.php:253
+msgid "Bookmark"
+msgstr ""
+
+#: plugins/Tagging/class.tagmodule.php:79
+msgid "Favorite Tags"
+msgstr ""
+
+#: plugins/Tagging/class.tagmodule.php:96
+msgid "Popular Tags"
+msgstr ""
+
+#: plugins/Tagging/class.tagmodule.php:131
+msgid "Browse all tags"
+msgstr ""
+
+#: setlocale.php:11
+msgid "A string to be translated would go here"
+msgstr "待翻譯的句子"

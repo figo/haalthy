@@ -23,7 +23,7 @@ function WriteDiscussion($Discussion, &$Sender, &$Session, $Alt2) {
    
    $DiscussionName = $Discussion->Name;
    if ($DiscussionName == '')
-      $DiscussionName = T('Blank Discussion Topic');
+      $DiscussionName = T(gettext('Blank Discussion Topic'));
       
    $Sender->EventArguments['DiscussionName'] = &$DiscussionName;
 
@@ -60,10 +60,10 @@ function WriteDiscussion($Discussion, &$Sender, &$Session, $Alt2) {
       <div class="Meta">
          <?php $Sender->FireEvent('BeforeDiscussionMeta'); ?>
          <?php if ($Discussion->Announce == '1') { ?>
-         <span class="Announcement"><?php echo T('Announcement'); ?></span>
+         <span class="Announcement"><?php echo T(gettext('Announcement')); ?></span>
          <?php } ?>
          <?php if ($Discussion->Closed == '1') { ?>
-         <span class="Closed"><?php echo T('Closed'); ?></span>
+         <span class="Closed"><?php echo T(gettext('Closed')); ?></span>
          <?php } ?>
          <span class="CommentCount"><?php printf(Plural($Discussion->CountComments, '%s comment', '%s comments'), $Discussion->CountComments); ?></span>
          <?php
@@ -73,10 +73,10 @@ function WriteDiscussion($Discussion, &$Sender, &$Session, $Alt2) {
             $Sender->FireEvent('AfterCountMeta');
 
             if ($Discussion->LastCommentID != '') {
-               echo '<span class="LastCommentBy">'.sprintf(T('Most recent by %1$s'), UserAnchor($Last)).'</span>';
+               echo '<span class="LastCommentBy">'.sprintf(T(gettext('Most recent by ')).T(' %1$s'), UserAnchor($Last)).'</span>';
                echo '<span class="LastCommentDate">'.Gdn_Format::Date($Discussion->LastDate).'</span>';
             } else {
-               echo '<span class="LastCommentBy">'.sprintf(T('Started by %1$s'), UserAnchor($First)).'</span>';
+               echo '<span class="LastCommentBy">'.sprintf(T(gettext('Started by ')).T(' %1$s'), UserAnchor($First)).'</span>';
                echo '<span class="LastCommentDate">'.Gdn_Format::Date($Discussion->FirstDate);
                
                if ($Source = GetValue('Source', $Discussion)) {
@@ -101,11 +101,11 @@ function WriteFilterTabs(&$Sender) {
    $Session = Gdn::Session();
    $Title = property_exists($Sender, 'Category') ? GetValue('Name', $Sender->Category, '') : '';
    if ($Title == '')
-      $Title = T('All Discussions');
+      $Title = T(gettext('All Discussions'));
       
-   $Bookmarked = T('My Bookmarks');
-   $MyDiscussions = T('My Discussions');
-   $MyDrafts = T('My Drafts');
+   $Bookmarked = T(gettext('My Bookmarks'));
+   $MyDiscussions = T(gettext('My Discussions'));
+   $MyDrafts = T(gettext('My Drafts'));
    $CountBookmarks = 0;
    $CountDiscussions = 0;
    $CountDrafts = 0;
@@ -129,7 +129,7 @@ function WriteFilterTabs(&$Sender) {
 <div class="Tabs DiscussionsTabs">
    <ul>
       <?php $Sender->FireEvent('BeforeDiscussionTabs'); ?>
-      <li<?php echo strtolower($Sender->ControllerName) == 'discussionscontroller' && strtolower($Sender->RequestMethod) == 'index' ? ' class="Active"' : ''; ?>><?php echo Anchor(T('All Discussions'), 'discussions', 'TabLink'); ?></li>
+      <li<?php echo strtolower($Sender->ControllerName) == 'discussionscontroller' && strtolower($Sender->RequestMethod) == 'index' ? ' class="Active"' : ''; ?>><?php echo Anchor(T(gettext('All Discussions')), 'discussions', 'TabLink'); ?></li>
       <?php $Sender->FireEvent('AfterAllDiscussionsTab'); ?>
 
       <?php
@@ -139,7 +139,7 @@ function WriteFilterTabs(&$Sender) {
             $CssClass = 'Active';
          }
 
-         echo "<li class=\"$CssClass\">".Anchor(T('Categories'), '/categories/all', 'TabLink').'</li>';
+         echo "<li class=\"$CssClass\">".Anchor(T(gettext('Categories')), '/categories/all', 'TabLink').'</li>';
       }
       ?>
       <?php if ($CountBookmarks > 0 || $Sender->RequestMethod == 'bookmarked') { ?>
@@ -202,27 +202,27 @@ function WriteOptions($Discussion, &$Sender, &$Session) {
       
       // Dismiss an announcement
       if (C('Vanilla.Discussions.Dismiss', 1) && $Discussion->Announce == '1' && $Discussion->Dismissed != '1')
-         $Sender->Options .= '<li>'.Anchor(T('Dismiss'), 'vanilla/discussion/dismissannouncement/'.$Discussion->DiscussionID.'/'.$Session->TransientKey(), 'DismissAnnouncement') . '</li>';
+         $Sender->Options .= '<li>'.Anchor(T(gettext('Dismiss')), 'vanilla/discussion/dismissannouncement/'.$Discussion->DiscussionID.'/'.$Session->TransientKey(), 'DismissAnnouncement') . '</li>';
       
       // Edit discussion
       if ($Discussion->FirstUserID == $Session->UserID || $Session->CheckPermission('Vanilla.Discussions.Edit', TRUE, 'Category', $Discussion->PermissionCategoryID))
-         $Sender->Options .= '<li>'.Anchor(T('Edit'), 'vanilla/post/editdiscussion/'.$Discussion->DiscussionID, 'EditDiscussion') . '</li>';
+         $Sender->Options .= '<li>'.Anchor(T(gettext('Edit')), 'vanilla/post/editdiscussion/'.$Discussion->DiscussionID, 'EditDiscussion') . '</li>';
 
       // Announce discussion
       if ($Session->CheckPermission('Vanilla.Discussions.Announce', TRUE, 'Category', $Discussion->PermissionCategoryID))
-         $Sender->Options .= '<li>'.Anchor(T($Discussion->Announce == '1' ? 'Unannounce' : 'Announce'), 'vanilla/discussion/announce/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'AnnounceDiscussion') . '</li>';
+         $Sender->Options .= '<li>'.Anchor(T($Discussion->Announce == '1' ? gettext('Unannounce') : gettext('Announce')), 'vanilla/discussion/announce/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'AnnounceDiscussion') . '</li>';
 
       // Sink discussion
       if ($Session->CheckPermission('Vanilla.Discussions.Sink', TRUE, 'Category', $Discussion->PermissionCategoryID))
-         $Sender->Options .= '<li>'.Anchor(T($Discussion->Sink == '1' ? 'Unsink' : 'Sink'), 'vanilla/discussion/sink/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'SinkDiscussion') . '</li>';
+         $Sender->Options .= '<li>'.Anchor(T($Discussion->Sink == '1' ? gettext('Unsink') : gettext('Sink')), 'vanilla/discussion/sink/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'SinkDiscussion') . '</li>';
 
       // Close discussion
       if ($Session->CheckPermission('Vanilla.Discussions.Close', TRUE, 'Category', $Discussion->PermissionCategoryID))
-         $Sender->Options .= '<li>'.Anchor(T($Discussion->Closed == '1' ? 'Reopen' : 'Close'), 'vanilla/discussion/close/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'CloseDiscussion') . '</li>';
+         $Sender->Options .= '<li>'.Anchor(T($Discussion->Closed == '1' ? gettext('Reopen') : gettext('Close')), 'vanilla/discussion/close/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'CloseDiscussion') . '</li>';
       
       // Delete discussion
       if ($Session->CheckPermission('Vanilla.Discussions.Delete', TRUE, 'Category', $Discussion->PermissionCategoryID))
-         $Sender->Options .= '<li>'.Anchor(T('Delete'), 'vanilla/discussion/delete/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'DeleteDiscussion') . '</li>';
+         $Sender->Options .= '<li>'.Anchor(T(gettext('Delete')), 'vanilla/discussion/delete/'.$Discussion->DiscussionID.'/'.$Session->TransientKey().'?Target='.urlencode($Sender->SelfUrl), 'DeleteDiscussion') . '</li>';
       
       // Allow plugins to add options
       $Sender->FireEvent('DiscussionOptions');
@@ -230,7 +230,7 @@ function WriteOptions($Discussion, &$Sender, &$Session) {
       if ($Sender->Options != '') {
       ?>
          <div class="ToggleFlyout OptionsMenu">
-            <div class="MenuTitle"><?php echo T('Options'); ?></div>
+            <div class="MenuTitle"><?php echo T(gettext('Options')); ?></div>
             <ul class="Flyout MenuItems">
                <?php echo $Sender->Options; ?>
             </ul>
@@ -250,7 +250,7 @@ function WriteOptions($Discussion, &$Sender, &$Session) {
       }
 
       // Bookmark link
-      $Title = T($Discussion->Bookmarked == '1' ? 'Unbookmark' : 'Bookmark');
+      $Title = T($Discussion->Bookmarked == '1' ? gettext('Unbookmark') : gettext('Bookmark'));
       echo Anchor(
          '<span class="Star">'
             .Img('applications/dashboard/design/images/pixel.png', array('alt' => $Title))
